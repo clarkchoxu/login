@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign up — CardQuiz</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <header class="login-header">
+    <a class="brand" href="index.html">
+      <div class="logo">CQ</div>
+      <div class="site-title">
+        <span class="main">CardQuiz</span>
+        <span class="sub">Flashcards • Timed • Fast</span>
+      </div>
+    </a>
+  </header>
+
+  <main class="login-wrap">
+    <section class="login-card" aria-labelledby="signup-heading">
+      <h1 id="signup-heading">Create your account</h1>
+      <p class="muted">We'll store a hashed password locally for demo purposes.</p>
+
+      <form id="signupForm" novalidate>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" autocomplete="username" required>
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required>
+
+        <div class="row">
+          <label class="small"><input type="checkbox" id="remember"> Remember me on this device</label>
+        </div>
+
+        <div id="error" role="alert" aria-live="assertive" class="error" hidden></div>
+
+        <div class="actions">
+          <button type="submit" class="primary">Sign up</button>
+          <a class="link" href="login.html">Back to sign in</a>
+        </div>
+      </form>
+
+      <p class="small muted">Already have an account? <a href="login.html">Sign in</a></p>
+    </section>
+  </main>
+
+  <script src="signup.js"></script>
+</body>
+</html>
+
+
+
+
+
+

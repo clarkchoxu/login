@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Login — CardQuiz</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+  <header class="login-header">
+    <a class="brand" href="index.html">
+      <div class="logo">CQ</div>
+      <div class="site-title">
+        <span class="main">CardQuiz</span>
+        <span class="sub">Flashcards • Timed • Fast</span>
+      </div>
+    </a>
+  </header>
+
+  <main class="login-wrap">
+    <section class="login-card" aria-labelledby="login-heading">
+      <h1 id="login-heading">Sign in to CardQuiz</h1>
+      <p class="muted">Enter your credentials to continue. This is a demo front-end only.</p>
+
+      <form id="loginForm" novalidate>
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" autocomplete="username" required>
+
+        <label for="password">Password</label>
+        <div class="pw-row">
+          <input id="password" name="password" type="password" autocomplete="current-password" required>
+          <button type="button" id="togglePw" aria-label="Show password">Show</button>
+        </div>
+
+        <div class="row">
+          <label class="small"><input type="checkbox" id="remember"> Remember me</label>
+        </div>
+
+        <div id="error" role="alert" aria-live="assertive" class="error" hidden></div>
+
+        <div class="actions">
+          <button type="submit" class="primary">Sign in</button>
+          <a class="link" href="sample.html">Continue as guest</a>
+        </div>
+      </form>
+
+      <p class="small muted">Need an account? <a href="signup.html">Sign up</a></p>
+    </section>
+  </main>
+
+  <script src="login.js"></script>
+</body>
+</html>

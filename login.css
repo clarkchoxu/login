@@ -1,0 +1,26 @@
+:root{--bg1:#0f172a;--card:#0b1220;--accent1:#3b82f6;--accent2:#06b6d4;--muted:#cbd5e1;--radius:12px}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:linear-gradient(135deg,var(--bg1),#111827); color:#e6eef8; -webkit-font-smoothing:antialiased; display:flex; flex-direction:column;}
+.login-header{display:flex;align-items:center;padding:20px 28px}
+.brand{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none}
+.logo{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;font-weight:900;background:linear-gradient(135deg,var(--accent1),var(--accent2));box-shadow:0 8px 24px rgba(59,130,246,0.12);color:white}
+.site-title .main{font-weight:800}
+.site-title .sub{font-size:12px;color:var(--muted)}
+
+.login-wrap{flex:1;display:grid;place-items:center;padding:40px}
+.login-card{width:100%;max-width:420px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:16px;padding:28px;border:1px solid rgba(255,255,255,0.03);box-shadow:0 18px 50px rgba(2,6,23,0.65)}
+.login-card h1{margin-bottom:6px}
+.muted{color:var(--muted)}
+.login-card label{display:block;margin-top:14px;font-weight:700}
+.login-card input[type="text"], .login-card input[type="password"]{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:inherit;margin-top:6px}
+.pw-row{display:flex;gap:8px;align-items:center}
+.pw-row button{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px 10px;border-radius:8px;cursor:pointer}
+.row{margin-top:12px}
+.actions{display:flex;gap:12px;align-items:center;margin-top:18px}
+.primary{background:linear-gradient(135deg,var(--accent1),var(--accent2));border:none;color:white;padding:10px 18px;border-radius:12px;cursor:pointer;font-weight:800}
+.link{color:var(--muted);text-decoration:none}
+.error{color:#ffd6d6;background:rgba(255,40,40,0.06);padding:10px;border-radius:8px;margin-top:12px}
+.small{font-size:0.9rem}
+
+@media (max-width:480px){.login-card{padding:18px;margin:0 12px}}

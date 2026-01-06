@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Card Quiz — Home</title>
+  <meta name="description" content="Card Quiz — timed flashcard challenges. Start the quiz, read about the project, and meet the team." />
+  <style>
+    :root{
+      --bg1: #0f172a;
+      --bg2: #1e293b;
+      --bg3: #334155;
+      --accent1: #3b82f6;
+      --accent2: #06b6d4;
+      --card-bg: rgba(255,255,255,0.03);
+      --glass: rgba(255,255,255,0.04);
+      --muted: #cbd5e1;
+      --radius-lg: 20px;
+      --radius-md: 12px;
+      --shadow: 0 10px 30px rgba(2,6,23,0.6);
+      --max-width: 1100px;
+      --nav-height: 72px;
+    }
+
+    /* reset */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html,body { height: 100%; }
+    body{
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+      color: #f1f5f9;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height: 1.45;
+      min-height:100vh;
+      scroll-behavior: smooth;
+    }
+
+    /* container */
+    .wrap{
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: calc(var(--nav-height) + 36px) 24px 80px;
+      position: relative;
+    }
+
+    /* NAV */
+    .nav {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(96%, 1200px);
+      height: var(--nav-height);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 16px;
+      padding: 12px 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      z-index: 1200;
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .logo {
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      display:inline-grid;
+      place-items:center;
+      font-weight:900;
+      font-size:18px;
+      background: linear-gradient(135deg,var(--accent1),var(--accent2));
+      color:white;
+      box-shadow: 0 6px 18px rgba(59,130,246,0.14);
+    }
+
+    .site-title {
+      display:flex;
+      flex-direction:column;
+      line-height:1;
+    }
+
+    .site-title .main {
+      font-weight:800;
+      font-size:16px;
+      letter-spacing: -0.2px;
+    }
+
+    .site-title .sub {
+      font-size:11px;
+      color:var(--muted);
+      margin-top:2px;
+    }
+
+    .nav-links {
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+
+    .nav-links a {
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:700;
+      padding:8px 12px;
+      border-radius:10px;
+      transition: all .18s ease;
+    }
+
+    .nav-links a:hover, .nav-links a:focus {
+      color:white;
+      transform: translateY(-2px);
+      background: linear-gradient(90deg, rgba(59,130,246,0.07), rgba(6,182,212,0.04));
+      outline: none;
+    }
+
+    .cta-start {
+      padding:10px 18px;
+      background: linear-gradient(135deg,var(--accent1),var(--accent2));
+      color:white;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:800;
+      box-shadow: 0 8px 22px rgba(99,102,241,0.12);
+      transition: transform .18s ease;
+    }
+    .cta-start:hover { transform: translateY(-3px); }
+
+        .cta-start1 {
+      padding:10px 18px;
+      background: linear-gradient(135deg,var(--accent1),var(--accent2));
+      color:white;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:800;
+      box-shadow: 0 8px 22px rgba(99,102,241,0.12);
+      transition: transform .18s ease;
+    
+    }
+    .cta-start1:hover { transform: translateY(-3px); }
+
+    /* Mobile hamburger */
+    .hamburger {
+      display:none;
+      width:44px;
+      height:44px;
+      border-radius:10px;
+      background: var(--card-bg);
+      border:1px solid rgba(255,255,255,0.02);
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+    }
+    .hamburger span{
+      display:block;
+      width:20px;
+      height:2px;
+      background: #e2e8f0;
+      border-radius:2px;
+      position:relative;
+    }
+    .hamburger span::before, .hamburger span::after {
+      content: '';
+      position:absolute;
+      left:0;
+      right:0;
+      height:2px;
+      background:#e2e8f0;
+      border-radius:2px;
+    }
+    .hamburger span::before { top:-6px; }
+    .hamburger span::after { top:6px; }
+
+    /* Hero */
+    .hero {
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap: 36px;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+
+    .hero h1 {
+      font-size: 2.25rem;
+      line-height:1.02;
+      margin-bottom:12px;
+      background: linear-gradient(135deg,var(--accent1),var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .lead {
+      color: var(--muted);
+      margin-bottom:18px;
+      font-weight:600;
+    }
+
+    .how {
+      display:flex;
+      gap:12px;
+      margin-top:14px;
+      align-items:center;
+    }
+
+    .pill {
+      background: var(--glass);
+      color: var(--muted);
+      padding:10px 14px;
+      border-radius: 999px;
+      font-weight:700;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+    }
+
+    .hero-cta {
+      margin-top:18px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+
+    /* Right side preview */
+    .preview {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius-md);
+      padding: 22px;
+      text-align:center;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .preview h3 { margin-bottom:8px; }
+    .preview .meta { color: var(--muted); margin-bottom:12px; }
+    .preview .big {
+      display:inline-block;
+      padding:10px 16px;
+      border-radius:12px;
+      background: linear-gradient(135deg,var(--accent1),var(--accent2));
+      font-weight:800;
+      color:white;
+    }
+
+    /* ABOUT */
+    section { margin-top:48px; }
+    .about {
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:24px;
+      align-items:start;
+    }
+    .about .text {
+      background: var(--card-bg);
+      border-radius: var(--radius-md);
+      padding:22px;
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+    .about h2 {
+      font-size:1.5rem;
+      margin-bottom:8px;
+    }
+    .about p { color: var(--muted); }
+
+    /* TEAM */
+    .team-grid {
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:18px;
+      margin-top:18px;
+    }
+
+    #about {
+  scroll-margin-top: 300px;  
+}
+
+    .member {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:16px;
+      border-radius:14px;
+      text-align:center;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .member .avatar {
+      width:78px;
+      height:78px;
+      border-radius:14px;
+      margin:0 auto 12px;
+      display:grid;
+      place-items:center;
+      font-weight:800;
+      background: linear-gradient(135deg,var(--accent1),var(--accent2));
+      color:white;
+      font-size:20px;
+      box-shadow: 0 8px 24px rgba(6,182,212,0.08);
+    }
+    .member h4 { margin-bottom:6px; }
+    .member p { color:var(--muted); font-size:0.95rem; }
+
+    /* FOOTER */
+    footer {
+      margin-top: 48px;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.95rem;
+      padding: 28px 16px;
+    }
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width:640px){
+      .nav { padding:10px; border-radius:12px; }
+      .nav-links { display:none; }
+      .hamburger { display:flex; }
+      .wrap{ padding-top: calc(var(--nav-height) + 18px); }
+      .team-grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size:1.6rem; }
+      .preview { display:none; }
+    }
+
+    /* small helper */
+    .muted { color:var(--muted); }
+    .small { font-size:0.9rem; color:var(--muted); }
+
+
+.umamusume_gamecon {
+   opacity: 0;   
+  position: absolute;
+  bottom: 150px;  /* distance from bottom */
+  right: 40px;   /* distance from right */
+  transition: opacity 0.5s ease;
+  pointer-events: none;    /* disable buttons while hidden */
+}
+
+
+
+.umamusume_gamecon.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@keyframes teioSpin {
+  0%   { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+.teio.spin {
+  animation: teioSpin 1s ease;
+}
+
+.teio {
+  
+  width: 200px;             /* whatever size you like */
+  height: auto;
+  display: block;
+  margin-bottom: 50px;
+}
+
+.umamusume_buttons {
+  position: absolute;
+  bottom: 0;                /* stick to bottom of the container */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;                 /* spacing between buttons */
+}
+
+.umabtn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.umabtn:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+
+.teio {
+  width: 150px;             /* whatever size you like */
+  height: auto;
+  display: block;
+}
+
+.umamusume_buttons {
+  position: absolute;
+  bottom: 0;                /* stick to bottom of the container */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;                 /* spacing between buttons */
+}
+
+.umabtn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+}
+
+.play-toggle {
+    background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  position:absolute;
+  bottom: 350px;
+  right: 130px;
+}
+
+.play-toggle:hover {
+  background: #2563eb;
+  transform: translateY(-2px);
+}
+
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <header class="nav" role="banner" aria-label="Main navigation">
+    <a class="brand" href="index.html">
+      <div class="logo" aria-hidden="true">CQ</div>
+      <div class="site-title">
+        <span class="main">CardQuiz</span>
+        <span class="sub">Flashcards • Timed • Fast</span>
+      </div>
+    </a>
+
+    <nav class="nav-links" role="navigation" aria-label="Primary">
+      <a href="#top" onclick="document.getElementById('top')?.scrollIntoView({behavior:'smooth'})">Home</a>
+      <a href="#about">About</a>
+      <a href="#team">Team</a>
+    </nav>
+
+    <div style="display:flex;align-items:center;gap:12px">
+      <a class="cta-start" href="Home.html" role="button">Start Quiz</a>
+      <button class="hamburger" id="hambtn" aria-expanded="false" aria-label="Open menu">
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE WRAP -->
+  <main class="wrap" id="top">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <div class="hero-card" role="region" aria-labelledby="hero-heading">
+        <h1 id="hero-heading">Test your critical analysis</h1>
+        <p class="lead">Ready to test your critical ability?</p>
+
+        <div class="how" aria-hidden="false">
+          <div class="pill">1. analyze</div>
+          <div class="pill">2. Answer quickly</div>
+          <div class="pill">3. See your score</div>
+        </div>
+
+        <div class="hero-cta">
+          <a class="cta-start" href="Home.html">Start Quiz</a>
+          <a class="pill" href="#about">How it works</a>
+        </div>
+
+        <p class="small" style="margin-top:12px">Best time: <strong id="bestTime">—</strong></p>
+      </div>
+
+      <aside class="preview" aria-label="Quick stats">
+        <div class="meta small">Questions per play</div>
+        <div style="margin:14px 0"><span class="big">10</span></div>
+        <div class="meta small">Attempts: unlimited</div>
+        <div style="margin-top:14px"><a class="cta-start1" href="Home.html">Play Now</a></div>
+      </aside>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="about" aria-labelledby="about-heading">
+      <div class="text" role="region" aria-labelledby="about-heading">
+        <h2 id="about-heading">About CardQuiz</h2>
+        <p> This quiz focuses on a single critical analysis question rated from 1 to 10. It’s designed to test how well you can evaluate, interpret, and form reasoned judgments based on given information. The goal is to strengthen your analytical thinking and reflection skills in a short, focused format.
+        </p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="text" role="region" aria-label="Tips">
+          <h3>Tips to get the most</h3>
+          <ul style="margin-top:8px;color:var(--muted);list-style:disc; padding-left:18px;">
+            <li>Take your time to think critically about each question — focus on reasoning, not guessing.</li>
+            <li>Aim for depth in your evaluation rather than speed.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team" aria-labelledby="team-heading" style="margin-top:28px">
+      <h2 id="team-heading" style="margin-bottom:12px">Meet the Team</h2>
+      <div class="team-grid" role="list">
+        <div class="member" role="listitem">
+          <div class="avatar" aria-hidden="true">J</div>
+          <h4>Josh Ian Mosquito</h4>
+          <p class="small">Back-end </p>
+        </div>
+
+        <div class="member" role="listitem">
+          <div class="avatar" aria-hidden="true">C</div>
+          <h4>Clark Santos</h4>
+          <p class="small">Full stack, CSS</p>
+        </div>
+
+        <div class="member" role="listitem">
+          <div class="avatar" aria-hidden="true">Ja</div>
+          <h4>James Derilo</h4>
+          <p class="small">Assistant developer</p>
+        </div>
+
+        <div class="member" role="listitem">
+          <div class="avatar" aria-hidden="true">Cl</div>
+          <h4>Clark Santiago</h4>
+          <p class="small">Front-End</p>
+        </div>
+
+        <div class="member" role="listitem">
+          <div class="avatar" aria-hidden="true">Ci</div>
+          <h4>Cian Garcia</h4>
+          <p class="small">Assistant front-end</p>
+        </div>
+      </div>
+    </section>
+
+    <button class="play-toggle">Play Horse game</button>
+    <div class="umamusume_gamecon">
+      <img class="teio" src="chara_stand_1003_100301.png">
+      <div class="umamusume_buttons">
+        <button onclick="playVoice()" class="umabtn">Speed</button>
+        <button onclick="playVoice()" class="umabtn">Stamina</button>
+        <button onclick="playVoice()" class="umabtn">Power</button>
+        <button onclick="playVoice()" class="umabtn">Guts</button>
+        <button onclick="playVoice()" class="umabtn">Wisdom</button>
+      </div>
+    </div>
+    <footer>
+      &copy; <span id="year"></span> CardQuiz — Built with uma love • <span class="small">Local, fast, and distraction-free.</span>
+    </footer>
+  </main>
+
+  <script>
+    // basic interactivity: hamburger toggle & best time display
+    (function(){
+      const hambtn = document.getElementById('hambtn');
+      const navlinks = document.querySelector('.nav-links');
+      if(hambtn){
+        hambtn.addEventListener('click', () => {
+          const expanded = hambtn.getAttribute('aria-expanded') === 'true';
+          hambtn.setAttribute('aria-expanded', String(!expanded));
+          // Toggle a very small mobile menu: clone links into a temporary overlay
+          if(!expanded){
+            // open mobile menu
+            const overlay = document.createElement('div');
+            overlay.id = 'mobileOverlay';
+            overlay.style.position = 'fixed';
+            overlay.style.inset = '0';
+            overlay.style.background = 'linear-gradient(180deg, rgba(2,6,23,0.7), rgba(2,6,23,0.85))';
+            overlay.style.zIndex = '1400';
+            overlay.style.display = 'grid';
+            overlay.style.placeItems = 'center';
+            overlay.innerHTML = '<nav style="display:flex;flex-direction:column;gap:18px;text-align:center;"><a href=\"#top\" style=\"color:white;font-weight:800;font-size:20px;text-decoration:none;\">Home</a><a href=\"#about\" style=\"color:white;font-weight:800;font-size:20px;text-decoration:none;\">About</a><a href=\"#team\" style=\"color:white;font-weight:800;font-size:20px;text-decoration:none;\">Team</a><a href=\"sample.html\" style=\"margin-top:8px;background:linear-gradient(135deg,#3b82f6,#06b6d4);color:#fff;padding:10px 20px;border-radius:12px;text-decoration:none;\">Start Quiz</a></nav>';
+            document.body.appendChild(overlay);
+            overlay.addEventListener('click', (e) => {
+              if(e.target === overlay) overlay.remove();
+              hambtn.setAttribute('aria-expanded', 'false');
+            });
+          } else {
+            // close mobile menu
+            const overlay = document.getElementById('mobileOverlay');
+            if(overlay) overlay.remove();
+          }
+        });
+      }
+
+
+
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // --- Best time persistence -------------------------------------------------
+      // Stored as a numeric value in seconds (float) under key 'cardquiz.bestTime'.
+      // Use saveScore(seconds) to save a new score/time when a play finishes.
+      const BEST_TIME_KEY = 'cardquiz.bestTime';
+      const bestEl = document.getElementById('bestTime');
+
+      function formatTimeSeconds(sec) {
+        if (sec === null || sec === undefined || Number.isNaN(sec)) return '—';
+        // show mm:ss.ss when >= 60s, otherwise ss.ss
+        const s = Number(sec);
+        if (!isFinite(s)) return '—';
+        const minutes = Math.floor(s / 60);
+        const seconds = s - minutes * 60;
+        if (minutes > 0) {
+          return `${minutes}:${seconds.toFixed(2).padStart(5, '0')}`; // m:ss.ss
+        }
+        return `${seconds.toFixed(2)}s`;
+      }
+
+      function readBestTime() {
+        const raw = localStorage.getItem(BEST_TIME_KEY);
+        if (!raw) return null;
+        const v = Number(raw);
+        return Number.isFinite(v) ? v : null;
+      }
+
+      function writeBestTime(seconds) {
+        if (seconds === null || seconds === undefined || Number.isNaN(Number(seconds))) return;
+        localStorage.setItem(BEST_TIME_KEY, String(Number(seconds)));
+        updateBestTimeDisplay();
+      }
+
+      function updateBestTimeDisplay() {
+        const best = readBestTime();
+        bestEl.textContent = best === null ? '—' : formatTimeSeconds(best);
+      }
+
+      /**
+       * Call this when a play/quiz finishes. Pass the measured time in seconds
+       * (number). If the passed value is better (smaller) than the stored best,
+       * it will replace it. If you treat higher-as-better (e.g., points), invert
+       * the comparison when calling or modify this function accordingly.
+       */
+      function saveScore(seconds) {
+        if (seconds === null || seconds === undefined || Number.isNaN(Number(seconds))) return;
+        const s = Number(seconds);
+        const best = readBestTime();
+        // For "Best time" smaller is better. Update only if there's no best or s < best.
+        if (best === null || s < best) {
+          writeBestTime(s);
+        }
+      }
+
+      // expose for quiz code to call: e.g. window.saveScore(37.42)
+      window.saveScore = saveScore;
+
+      // initialize display on load
+      updateBestTimeDisplay();
+      // ---------------------------------------------------------------------------
+    })();
+
+const playButton = document.querySelector('.play-toggle');
+const gameContainer = document.querySelector('.umamusume_gamecon');
+
+playButton.addEventListener('click', () => {
+  gameContainer.classList.toggle('visible');
+});
+
+
+const teio = document.querySelector('.teio');
+  const sound = new Audio('harikitte-ikou-kitasan-black_F_minor__bpm_155.mp3');
+const buttons = document.querySelectorAll('.umabtn');
+
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+      teio.classList.remove('spin');  // reset so it can spin again
+    void teio.offsetWidth;          // force reflow (important)
+    teio.classList.add('spin');     // add spin again
+
+  });
+});
+
+function playVoice() {
+  new Audio('harikitte-ikou-kitasan-black_F_minor__bpm_155.mp3').play();
+}
+
+
+
+  </script>
+</body>
+</html>

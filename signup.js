@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const salt = randomSaltHex();
     const hash = await sha256Hex(salt + password);
 
-    const res = await fetch('http://localhost:3000/signup', {
+    const res = await fetch('http://192.168.68.102:3000/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, salt, hash })

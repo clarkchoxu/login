@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       return;
     }
 
-    const res = await fetch('http://192.168.68.102:3000/login', {
+    const res = await fetch('https://css-backend-5z5e.onrender.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username })

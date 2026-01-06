@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
     const salt = randomSaltHex();
     const hash = await sha256Hex(salt + password);
 
-    const res = await fetch('https://css-backend-5z5e.onrender.com/signup', {
+    const res = await fetch('https://css-backend-1.onrender.com/signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, salt, hash })

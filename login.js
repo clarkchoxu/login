@@ -1,16 +1,3 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('loginForm');
-  const err = document.getElementById('error');
-  const pw = document.getElementById('password');
-  const toggleBtn = document.getElementById('togglePw');
-
-  // Show/hide password
-  toggleBtn.addEventListener('click', () => {
-    const isHidden = pw.type === 'password';
-    pw.type = isHidden ? 'text' : 'password';
-    toggleBtn.textContent = isHidden ? 'Hide' : 'Show';
-  });
-
 async function sha256Hex(input){
   const enc = new TextEncoder();
   const data = enc.encode(input);
@@ -67,4 +54,3 @@ if(inputHash === hash){
 }
   });
 });
-

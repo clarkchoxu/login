@@ -54,4 +54,3 @@ if(inputHash === hash){
 }
   });
 });
-

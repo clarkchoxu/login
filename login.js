@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       return;
     }
 
-    const { salt, hash } = await res.json();
+    const { salt, hash, token } = await res.json();
     const inputHash = await sha256Hex(salt + password);
 
     if(inputHash !== hash){
@@ -54,3 +54,4 @@ if(inputHash === hash){
 }
   });
 });
+

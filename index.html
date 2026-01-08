@@ -575,7 +575,9 @@
 
 document.addEventListener('DOMContentLoaded', async () => {
   const authLink = document.getElementById('authLink');
-  const token = localStorage.getItem('authToken');
+const token =
+  localStorage.getItem('authToken') ||
+  sessionStorage.getItem('authToken');
 
   if (authLink && token) {
     // Verify token with backend
@@ -601,12 +603,20 @@ document.addEventListener('DOMContentLoaded', async () => {
           });
           
           localStorage.removeItem('authToken');
+sessionStorage.removeItem('authToken');
+localStorage.removeItem('username');
+sessionStorage.removeItem('username');
+
           localStorage.removeItem('loggedIn');
           location.href = 'login.html';
         };
       } else {
         // Invalid token
         localStorage.removeItem('authToken');
+sessionStorage.removeItem('authToken');
+localStorage.removeItem('username');
+sessionStorage.removeItem('username');
+
         localStorage.removeItem('loggedIn');
       }
     } catch (err) {

@@ -1,57 +1,43 @@
-async function sha256Hex(input){
-  const enc = new TextEncoder();
-  const data = enc.encode(input);
-  const hash = await crypto.subtle.digest('SHA-256', data);
-  return Array.from(new Uint8Array(hash))
-    .map(b => b.toString(16).padStart(2,'0'))
-    .join('');
-}
-
-function randomSaltHex(){
-  const a = crypto.getRandomValues(new Uint8Array(16));
-  return Array.from(a)
-    .map(b => b.toString(16).padStart(2,'0'))
-    .join('');
-}
-
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('signupForm');
   const err = document.getElementById('error');
 
-  form.addEventListener('submit', async (e)=>{
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     err.hidden = true;
 
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
 
-    if(!username || !password){
+    if (!username || !password) {
       err.textContent = 'Fill all fields';
       err.hidden = false;
       return;
     }
 
+    try {
+      const res = await fetch('https://css-backend-1.onrender.com/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
 
-    const salt = randomSaltHex();
-    const hash = await sha256Hex(salt + password);
+      const data = await res.json();
 
-    const res = await fetch('https://css-backend-1.onrender.com/signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, salt, hash })
-    });
+      if (!res.ok) {
+        err.textContent = data.error;
+        err.hidden = false;
+        return;
+      }
 
-    const data = await res.json();
-
-    if(!res.ok){
-      err.textContent = data.error;
+      err.textContent = 'Account created!';
       err.hidden = false;
-      return;
+
+      setTimeout(() => location.href = 'login.html', 800);
+    } catch (error) {
+      console.error(error);
+      err.textContent = 'Server error';
+      err.hidden = false;
     }
-
-    err.textContent = 'Account created!';
-    err.hidden = false;
-
-    setTimeout(() => location.href = 'login.html', 800);
   });
 });

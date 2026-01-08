@@ -46,7 +46,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       err.hidden = false;
       return;
     }
-    localStorage.setItem('loggedIn', '1');
-    window.location.href = 'index.html';
+// After successful password verification
+if(inputHash === hash){
+  localStorage.setItem('authToken', token); // Store token from response
+  localStorage.setItem('loggedIn', '1');
+  window.location.href = 'index.html';
+}
   });
 });

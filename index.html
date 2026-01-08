@@ -458,7 +458,7 @@
       <a href="#top" onclick="document.getElementById('top')?.scrollIntoView({behavior:'smooth'})">Home</a>
       <a href="#about">About</a>
       <a href="#team">Team</a>
-      <a href="login.html">Login</a>
+   <a href="login.html" id="authLink">Login</a>
 
     </nav>
 
@@ -572,6 +572,52 @@
   </main>
 
   <script>
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const authLink = document.getElementById('authLink');
+  const token = localStorage.getItem('authToken');
+
+  if (authLink && token) {
+    // Verify token with backend
+    try {
+      const res = await fetch('https://css-backend-1.onrender.com/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token })
+      });
+
+      if (res.ok) {
+        const { username } = await res.json();
+        authLink.textContent = 'Logout';
+        authLink.href = '#';
+        authLink.onclick = async (e) => {
+          e.preventDefault();
+          
+          // Notify backend
+          await fetch('https://css-backend-1.onrender.com/logout', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token })
+          });
+          
+          localStorage.removeItem('authToken');
+          localStorage.removeItem('loggedIn');
+          location.href = 'login.html';
+        };
+      } else {
+        // Invalid token
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('loggedIn');
+      }
+    } catch (err) {
+      console.error('Auth check failed:', err);
+    }
+  }
+});
+
+
+
+
     // basic interactivity: hamburger toggle & best time display
     (function(){
       const hambtn = document.getElementById('hambtn');

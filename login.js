@@ -24,6 +24,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
       return;
     }
 
+
+
     const res = await fetch('https://css-backend-1.onrender.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -44,7 +46,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
       err.hidden = false;
       return;
     }
-
+    localStorage.setItem('loggedIn', '1');
     window.location.href = 'index.html';
   });
 });

@@ -31,6 +31,11 @@ document.addEventListener('DOMContentLoaded', ()=>{
       return;
     }
 
+if (username.includes(' ') || username.length < 3 || username.length > 20) {
+  return res.status(400).json({ error: 'Invalid username' });
+}
+    
+
     const salt = randomSaltHex();
     const hash = await sha256Hex(salt + password);
 
